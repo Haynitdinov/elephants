@@ -6,8 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -52,7 +56,10 @@ class ElephantsTest {
 	void should_LoadDataFromFileInput(String fileName) throws IOException {
 
 		// given
+	    
+
 		String file = "input_output/in/" + fileName;
+		InputStream targetStream = new FileInputStream(file);
 		rd = new BufferedReader(new FileReader(file));
 		strTok = new StringTokenizer(rd.readLine());
 
@@ -78,7 +85,7 @@ class ElephantsTest {
 
 		// when
 		Elephants el = new Elephants();
-		el.loadDataFromFileInput(file);
+		el.dataFromInput(new InputStreamReader(targetStream));
 
 		// then
 		assertAll(() -> assertEquals(NfromFile, el.getnElephants()),
@@ -91,15 +98,18 @@ class ElephantsTest {
 
 	// check if the method calculate correct result for each test case
 	@Test
-	void should_CountMinCost() {
+	void should_CountMinCost() throws FileNotFoundException {
 
 		// given
 		long[] testResults = new long[inputFiles.length];
+		
+	
 		// when
 		for (int i = 0; i < inputFiles.length; i++) {
-
+			String file = "input_output/in/" + inputFiles[i];
+			InputStream targetStream = new FileInputStream(file);
 			Elephants el = new Elephants();
-			el.loadDataFromFileInput("input_output/in/" + inputFiles[i]);
+			el.dataFromInput(new InputStreamReader(targetStream));
 			testResults[i] = el.countMinCost();
 		}
 

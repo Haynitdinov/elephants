@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Elephants {
@@ -17,11 +19,11 @@ public class Elephants {
 	private int[] permutations; // target position of elephants
 	static boolean[] checked; // boolean to indicate if elephant is on good position (default false)
 
-	// load data from the file and assign it to class variables
-	public void loadDataFromFileInput(String fileName) {
+	// load data from standard input and assign it to class variables
+	public void dataFromInput(InputStreamReader inputStream) {
 
 		try {
-			BufferedReader rd = new BufferedReader(new FileReader(fileName));
+	    	BufferedReader rd = new BufferedReader(inputStream);
 			StringTokenizer fromFile = new StringTokenizer(rd.readLine());
 
 			this.nElephants = Integer.parseInt(fromFile.nextToken());
@@ -53,28 +55,6 @@ public class Elephants {
 		}
 	}
 
-	// method returns the output loaded from the file
-	public static long loadDataFromFileOut(String fileName) {
-
-		long result = 0;
-
-		try {
-			BufferedReader rd = new BufferedReader(new FileReader(fileName));
-			StringTokenizer fromFile = new StringTokenizer(rd.readLine());
-
-			result = Long.parseLong(fromFile.nextToken());
-
-			rd.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("file not found");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("IOException");
-			e.printStackTrace();
-
-		}
-		return result;
-	}
 
 	// method calculates minimum cost of changing elephant's start positions to
 	// target position
